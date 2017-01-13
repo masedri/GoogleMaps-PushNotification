@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Push Notifications</title>
+  <script type="text/javascript" src="js/push.min.js"></script>
+  <style>
+		#mapa {
+			width: 800px;
+			height: 600px;
+			max-height: 100%;
+			max-width: 100vh;
+		}
+	</style>
+</head>
+
+<body>
+<h1>Prueba Push Notification</h1>
+
+  <button class="btn">Push Notification</button>
+  <script>
+    var btn = document.querySelector('.btn');
+    btn.addEventListener('click', function () {
+      Push.create("SaveADog", {
+        body: "Push notification!!!",
+        icon: "PATA_ICONO_2.PNG",
+        timeout: 2000,
+        onClick: function () {
+          // window.location = "http://www.marckrodriguez.com/"
+          this.close();
+        },
+        vibrate: 1000,
+      });
+    });
+  </script>
+<h1>Prueba Mapa</h1>
+<div id="mapa"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIQ_e760hVN3oI2dKsbIT43M3K7c2-uHM">
+  </script>
+<script>
+    var map;
+    var marker;
+    var listener;
+    listener = google.maps.event.addDomListener(window, 'load', function () {
+      //Cuando load se ejecuta ya está lista la api.
+      map = new google.maps.Map(document.querySelector('#mapa'), {
+        center: { lat: 40.432473, lng: -3.638481 },
+        zoom: 15
+      });
+
+      marker = new google.maps.Marker({
+        position: { lat: 40.432473, lng: -3.638481 },
+        map: map,
+        title: 'Gorda'
+      });
+
+      marker.addListener('click', function () {
+        map.setZoom(18);
+        map.setCenter(marker.getPosition());
+      });
+    });
+</script>
+</body>
+
+</html>
